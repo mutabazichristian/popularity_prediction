@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app
 
 # Ensure the model file is in the right place
-COPY best_model.pkl /app/best_model.pkl
+COPY Random_Forestbest_model best_model.pkl /app/best_model.pkl
 
 # Install dependencies
 RUN pip install -r requirements.txt
