@@ -5,6 +5,8 @@ A machine learning solution to predict song popularity using advanced regression
 
 ##Public API End point
 https://popularity-prediction.onrender.com/
+##Video
+https://youtu.be/w8faeZQNQZQ
 
 ## 🎯 The Use
 Develop a predictive model that helps musicians and producers understand the key factors influencing a song's potential success by analyzing audio characteristics.
