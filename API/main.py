@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-import pickle
+import joblib
 import numpy as np
 from typing import List
 
@@ -22,7 +22,7 @@ app.add_middleware(
 # get model
 try:
     with open("Random_Forest_model.pkl", "rb") as f:
-        model, scaler = pickle.load(f)
+        model, scaler = joblib.load(f)
 except FileNotFoundError:
     raise Exception("Model file not found. 'best_model.pkl' does not exit")
 
