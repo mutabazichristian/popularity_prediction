@@ -21,12 +21,14 @@ app.add_middleware(
 
 # get model
 try:
-    with open("Random_Forest_model.pkl", "rb") as f:
-        model, scaler = joblib.load(f)
-except FileNotFoundError:
-    raise Exception("Model file not found. 'best_model.pkl' does not exit")
-
-
+    loaded_data = joblib.load("Random_Forest_model.pkl")
+    if isinstance(loaded_data, tuple):
+        model, scaler = loaded_data
+    elif isinstance(loaded_data, dict):
+        model = loaded_data.get('model')
+        scaler = loaded_data.get('scaler')
+    else:
+        raise ValueError("Unexpected model file format")
 class SongFeatures(BaseModel):
     duration_ms: int = Field(
         ..., ge=3000, le=600000, description="Song duration in milliseconds"
