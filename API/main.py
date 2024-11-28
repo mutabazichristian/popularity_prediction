@@ -29,6 +29,10 @@ try:
         scaler = loaded_data.get('scaler')
     else:
         raise ValueError("Unexpected model file format")
+except FileNotFoundError:
+    raise Exception("Model file not found. 'Random_Forest_model.pkl' does not exist")
+except Exception as e:
+    raise Exception(f"Error loading model: {str(e)}")
 
 class SongFeatures(BaseModel):
     duration_ms: int = Field(
