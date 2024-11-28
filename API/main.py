@@ -21,26 +21,39 @@ app.add_middleware(
 
 # get model
 try:
-loaded_data = joblib.load("Random_Forest_model.pkl")
-print("Type of loaded data:", type(loaded_data))
-print("Keys/Attributes of loaded data:", 
-      list(loaded_data.__dict__.keys()) if hasattr(loaded_data, '__dict__') else 
-      (loaded_data.keys() if isinstance(loaded_data, dict) else "No keys available"))
-if hasattr(loaded_data, 'best_estimator_'):
-    model = loaded_data.best_estimator_
-    scaler = None  # You might need to extract this differently
-elif hasattr(loaded_data, 'named_steps'):
-    model = loaded_data.named_steps.get('regressor')
-    scaler = loaded_data.named_steps.get('scaler')
-else:
-    raise ValueError(f"Unexpected model format. Loaded data type: {type(loaded_data)}")
-if model is None:
-    raise ValueError("Failed to extract model from loaded data")
+    loaded_data = joblib.load("Random_Forest_model.pkl")
+    print("Type of loaded data:", type(loaded_data))
+    print(
+        "Keys/Attributes of loaded data:",
+        (
+            list(loaded_data.__dict__.keys())
+            if hasattr(loaded_data, "__dict__")
+            else (
+                loaded_data.keys()
+                if isinstance(loaded_data, dict)
+                else "No keys available"
+            )
+        ),
+    )
+    if hasattr(loaded_data, "best_estimator_"):
+        model = loaded_data.best_estimator_
+        scaler = None  # You might need to extract this differently
+    elif hasattr(loaded_data, "named_steps"):
+        model = loaded_data.named_steps.get("regressor")
+        scaler = loaded_data.named_steps.get("scaler")
+    else:
+        raise ValueError(
+            f"Unexpected model format. Loaded data type: {type(loaded_data)}"
+        )
+
+    if model is None:
+        raise ValueError("Failed to extract model from loaded data")
 
 except FileNotFoundError:
-raise Exception("Model file not found. 'Random_Forest_model.pkl' does not exist")
+    raise Exception("Model file not found. 'Random_Forest_model.pkl' does not exist")
 except Exception as e:
-raise Exception(f"Error loading model: {str(e)}")
+    raise Exception(f"Error loading model: {str(e)}")
+
 
 class SongFeatures(BaseModel):
     duration_ms: int = Field(
@@ -83,7 +96,6 @@ class SongFeatures(BaseModel):
     audio_valence: float = Field(
         ..., ge=0.0, le=1.0, description="Musical positiveness conveyed by the track"
     )
-
 
     class Config:
         schema_extra = {
