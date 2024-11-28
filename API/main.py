@@ -22,10 +22,10 @@ app.add_middleware(
 # get model
 try:
     # Load model
-    model = joblib.load("linear_regression/Random_Forest_model.pkl")
+    model = joblib.load("Random_Forest_model.pkl")
     
     # Load scaler
-    scaler = joblib.load("linear_regression/song_popularity_scaler.pkl")
+    scaler = joblib.load("song_popularity_scaler.pkl")
 
 except FileNotFoundError as e:
     raise Exception(f"File not found: {str(e)}")
