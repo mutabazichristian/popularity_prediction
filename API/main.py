@@ -29,6 +29,7 @@ try:
         scaler = loaded_data.get('scaler')
     else:
         raise ValueError("Unexpected model file format")
+
 class SongFeatures(BaseModel):
     duration_ms: int = Field(
         ..., ge=3000, le=600000, description="Song duration in milliseconds"
